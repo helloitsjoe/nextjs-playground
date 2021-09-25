@@ -1,5 +1,7 @@
+import Layout from '../components/Layout';
+
 const About = () => {
-  return <h1>About helloitsjoe</h1>;
+  return <Layout>NextJS with Prisma</Layout>;
 };
 
 export default About;
