@@ -22,19 +22,19 @@ const Post = ({ title, id, date, contentHtml, random }) => {
   );
 };
 
-// export async function getStaticPaths() {
-//   return { paths: getAllPostIds(), fallback: false };
-// }
-
-// export async function getStaticProps({ params }) {
-//   return { props: await getPostData(params.id) };
-// }
-
-export async function getServerSideProps({ params }) {
-  const postData = await getPostData(params.id);
-  return {
-    props: { ...postData, random: Math.floor(Math.random() * 100) },
-  };
+export async function getStaticPaths() {
+  return { paths: getAllPostIds(), fallback: false };
 }
+
+export async function getStaticProps({ params }) {
+  return { props: await getPostData(params.id) };
+}
+
+// export async function getServerSideProps({ params }) {
+//   const postData = await getPostData(params.id);
+//   return {
+//     props: { ...postData, random: Math.floor(Math.random() * 100) },
+//   };
+// }
 
 export default Post;
