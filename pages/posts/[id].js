@@ -14,27 +14,19 @@ const addToDB = ({ title, slug, date, content, author }) => {
     body: JSON.stringify({ title, slug, date, content, author }),
   })
     .then(res => {
-      if (!res.ok) {
-        throw new Error(`Error adding: ${res.status}`);
-      }
-      return res.json();
+      if (res.ok) return res.json();
+      throw new Error(`Error adding: ${res.status}`);
     })
-    .then(data => {
-      console.log(data);
-    });
+    .then(console.log);
 };
 
 const getAllPosts = () => {
   fetch('/api/get-posts')
     .then(res => {
-      if (!res.ok) {
-        throw new Error(`Error fetching: ${res.status}`);
-      }
-      return res.json();
+      if (res.ok) return res.json();
+      throw new Error(`Error fetching: ${res.status}`);
     })
-    .then(data => {
-      console.log(data);
-    });
+    .then(console.log);
 };
 
 const Post = ({ title, id, date, contentHtml, random }) => {
