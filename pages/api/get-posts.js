@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   // const posts = await db.query('SELECT * FROM posts');
 
-  const posts = await prisma.user.findMany({ include: { posts: true } });
+  const posts = await prisma.post.findMany();
 
   // await prisma.user.create({
   //   data: {
