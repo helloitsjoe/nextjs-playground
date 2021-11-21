@@ -8,9 +8,9 @@ export const createHandler = (
   return async (req, res) => {
     const db = await getOrCreateDB();
 
-    const posts = await db.query('SELECT * FROM posts');
+    // const posts = await db.query('SELECT * FROM posts');
 
-    // const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany();
 
     // await prisma.user.create({
     //   data: {

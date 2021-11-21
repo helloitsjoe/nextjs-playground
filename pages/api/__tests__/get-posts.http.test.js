@@ -2,6 +2,7 @@
 const { createServer } = require('http');
 import { apiResolver } from 'next-server/dist/server/api-utils';
 const { createHandler } = require('../get-posts');
+const { seedDB } = require('../seed');
 const axios = require('axios');
 
 jest.mock('@prisma/client');
@@ -26,16 +27,18 @@ beforeEach(() => {
   server = null;
 });
 
-afterEach(() => {
-  server.close();
+afterEach(done => {
+  server.close(done);
 });
 
 describe('get-posts', () => {
-  it('gets all posts', async () => {
-    const getDB = () => ({
-      query: jest.fn().mockResolvedValue([{ title: 'foo' }]),
-    });
-    server = createServer(createTestHandler(createHandler(getDB, null)));
+  it('gets all posts (mocked)', async () => {
+    const prisma = {
+      post: {
+        findMany: jest.fn().mockResolvedValue([{ title: 'foo' }]),
+      },
+    };
+    server = createServer(createTestHandler(createHandler(() => {}, prisma)));
     const url = await listen(server);
     const { data } = await axios.get(url);
     expect(data.posts).toEqual([{ title: 'foo' }]);

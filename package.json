@@ -7,11 +7,15 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
+    "test:local": "jest --testPathIgnorePatterns=integration",
+    "test:db": "docker-compose run --rm integration-test",
+    "test:db:local": "dotenv -e .env.local jest",
     "start:custom": "node server.js"
   },
   "dependencies": {
     "@prisma/client": "^3.2.1",
     "date-fns": "^2.24.0",
+    "dotenv-cli": "^4.1.0",
     "gray-matter": "^4.0.3",
     "next": "^11.0.0",
     "node-fetch": "^2",
@@ -27,7 +31,6 @@
     "@testing-library/react": "^12.1.2",
     "axios": "^0.24.0",
     "jest": "^27.3.1",
-    "jest-babel": "^1.0.1",
     "msw": "^0.35.0",
     "next-server": "^9.0.5",
     "prisma": "3.2.1"
