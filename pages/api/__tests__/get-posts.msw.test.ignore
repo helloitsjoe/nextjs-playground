@@ -1,0 +1,23 @@
+const { rest } = require('msw');
+const { setupServer } = require('msw/node');
+const axios = require('axios');
+const { createHandler } = require('../get-posts');
+
+jest.mock('@prisma/client');
+
+describe('get-posts', () => {
+  it('gets all posts', async () => {
+    const getDB = () => ({ query: jest.fn().mockResolvedValue({}) });
+    // Darn, this doesn't work because the msw req/res API is different
+    // from NextJS/Express :(
+    const handler = rest.get(
+      'http://localhost/foo',
+      createHandler(getDB, null)
+    );
+    const server = setupServer(handler);
+    server.listen();
+    const { data } = await axios.get('/foo');
+    expect(data.posts).toBe({});
+    server.close();
+  });
+});
