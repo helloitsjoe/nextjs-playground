@@ -2,7 +2,7 @@ const { createServer } = require('http');
 import { apiResolver } from 'next-server/dist/server/api-utils';
 const { createHandler } = require('../get-posts');
 const { seedDB } = require('../seed');
-const { getDB } = require('../../../lib/db');
+// const { getDB } = require('../../../lib/db');
 const axios = require('axios');
 
 const listen = server => {
@@ -20,16 +20,12 @@ const createTestHandler = handler => (req, res) => {
 };
 
 let server;
-let db;
 
 beforeEach(async () => {
-  // TODO: Avoid this singleton?
-  db = await getDB();
   server = null;
 });
 
 afterEach(async () => {
-  await db.end();
   server.close();
 });
 

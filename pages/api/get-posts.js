@@ -1,12 +1,9 @@
-const { getDB } = require('../../lib/db');
+// const { getDB } = require('../../lib/db');
 const { PrismaClient } = require('@prisma/client');
 
-export const createHandler = (
-  getOrCreateDB = getDB,
-  prisma = new PrismaClient()
-) => {
+export const createHandler = (prisma = new PrismaClient()) => {
   return async (req, res) => {
-    const db = await getOrCreateDB();
+    // const db = await getOrCreateDB();
 
     // const posts = await db.query('SELECT * FROM posts');
 

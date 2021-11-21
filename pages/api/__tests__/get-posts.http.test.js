@@ -38,7 +38,7 @@ describe('get-posts', () => {
         findMany: jest.fn().mockResolvedValue([{ title: 'foo' }]),
       },
     };
-    server = createServer(createTestHandler(createHandler(() => {}, prisma)));
+    server = createServer(createTestHandler(createHandler(prisma)));
     const url = await listen(server);
     const { data } = await axios.get(url);
     expect(data.posts).toEqual([{ title: 'foo' }]);

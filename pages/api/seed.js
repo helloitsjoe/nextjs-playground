@@ -1,10 +1,8 @@
 const { PrismaClient } = require('@prisma/client');
-const { getDB } = require('../../lib/db');
 
 const prisma = new PrismaClient();
 
 export const seedDB = async () => {
-  const db = await getDB();
   await prisma.profile.deleteMany();
   await prisma.post.deleteMany();
   await prisma.user.deleteMany();
