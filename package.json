@@ -9,7 +9,7 @@
     "test": "jest",
     "test:local": "jest --testPathIgnorePatterns=integration",
     "test:db": "docker-compose run --rm integration-test",
-    "test:db:local": "dotenv -e .env.local jest",
+    "test:db:local": "dotenv -e .env.test jest",
     "start:custom": "node server.js"
   },
   "dependencies": {
