@@ -10,20 +10,23 @@
     "test:local": "jest --testPathIgnorePatterns=integration",
     "test:db": "docker-compose run --rm integration-test",
     "test:db:local": "dotenv -e .env.test jest",
-    "start:custom": "node server.js"
+    "start:custom": "node server.js",
+    "migrate:dev": "dotenv -e .env.local prisma migrate dev",
+    "seed": "dotenv -e .env.local node pages/api/run-seed.js"
   },
   "dependencies": {
     "@prisma/client": "^3.2.1",
     "date-fns": "^2.24.0",
     "dotenv-cli": "^4.1.0",
     "gray-matter": "^4.0.3",
-    "next": "^11.0.0",
+    "next": "^12.0.4",
     "node-fetch": "^2",
     "pg": "^8.7.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "^18.0.0-beta-0cc724c77-20211125",
+    "react-dom": "^18.0.0-beta-0cc724c77-20211125",
     "remark": "13",
-    "remark-html": "13"
+    "remark-html": "13",
+    "swr": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
