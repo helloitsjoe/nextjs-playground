@@ -15,7 +15,6 @@ import useSWR from 'swr';
 // }
 
 const fetcher = url => {
-  console.log(`url:`, url);
   return fetch(url).then(res => {
     if (!res.ok) {
       throw new Error('O no', res.status);
@@ -30,7 +29,7 @@ const BlogList = () => {
   });
 
   if (error) {
-    return error;
+    return error.message;
   }
 
   return (
