@@ -1,8 +1,7 @@
 const { createServer } = require('http');
-import { apiResolver } from 'next-server/dist/server/api-utils';
+const { apiResolver } = require('next-server/dist/server/api-utils');
 const { createHandler } = require('../get-posts');
-const { seedDB } = require('../seed');
-// const { getDB } = require('../../../lib/db');
+const { seedDB } = require('../__fixtures__/mock-seed');
 const axios = require('axios');
 
 const listen = server => {
@@ -31,21 +30,29 @@ afterEach(async () => {
 
 describe('integration tests', () => {
   it('gets all posts (DB)', async () => {
-    // TODO: Create test DB with .env.test
     await seedDB();
     server = createServer(createTestHandler(createHandler()));
     const url = await listen(server);
     const { data } = await axios.get(url);
-    expect(data.posts).toEqual([
-      {
-        authorId: expect.any(Number),
-        content: 'This is some test content',
-        createdAt: expect.any(String),
-        id: expect.any(Number),
-        published: false,
-        title: 'Test Title',
-        updatedAt: expect.any(String),
-      },
-    ]);
+    expect(data.posts).toContainEqual({
+      authorId: expect.any(Number),
+      content: 'Autobots are the best.',
+      createdAt: expect.any(String),
+      id: expect.any(Number),
+      slug: 'transformers-rule',
+      published: false,
+      title: 'Transformers rule!',
+      updatedAt: expect.any(String),
+    });
+    expect(data.posts).toContainEqual({
+      authorId: expect.any(Number),
+      content: 'A post about apples',
+      createdAt: expect.any(String),
+      id: expect.any(Number),
+      slug: 'apples-are-yum',
+      published: false,
+      title: 'Apples are yum',
+      updatedAt: expect.any(String),
+    });
   });
 });

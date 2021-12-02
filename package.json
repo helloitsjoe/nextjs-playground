@@ -8,10 +8,12 @@
     "start": "next start",
     "test": "jest",
     "test:local": "jest --testPathIgnorePatterns=integration",
-    "test:db": "docker-compose run --rm integration-test",
-    "test:db:local": "dotenv -e .env.test jest",
+    "test:api": "docker-compose up integration-test && docker-compose down --remove-orphans || docker-compose down --remove-orphans",
+    "test:api:local": "dotenv -e .env.test jest",
     "start:custom": "node server.js",
     "migrate:dev": "dotenv -e .env.local prisma migrate dev",
+    "migrate:test": "dotenv -e .env.test -- prisma migrate reset --force",
+    "db": "docker-compose up -d pg && sleep 1 && yarn migrate:test",
     "seed": "dotenv -e .env.local node pages/api/run-seed.js"
   },
   "dependencies": {
@@ -26,7 +28,8 @@
     "react-dom": "^18.0.0-beta-0cc724c77-20211125",
     "remark": "13",
     "remark-html": "13",
-    "swr": "^1.0.1"
+    "swr": "^1.0.1",
+    "wait-on": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
